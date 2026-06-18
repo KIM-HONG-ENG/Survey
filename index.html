@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Z'nuthhh 🎂</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    background: #010101;
+    min-height: 100vh;
+    font-family: 'Kalam', cursive;
+    color: #fba0e3;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1100px;
+    width: 100%;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  .messages {
+    text-align: left;
+    max-width: 480px;
+  }
+
+  h1 {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: #fba0e3;
+    text-shadow: 0 0 20px rgba(246, 140, 219, 0.5);
+    margin-bottom: 25px;
+    line-height: 1;
+    animation: fadeIn 1.5s ease;
+  }
+
+  .instruction {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: #fba0e3;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  .instruction:nth-of-type(1) { animation-delay: 0.8s; }
+  .instruction:nth-of-type(2) { animation-delay: 1.4s; }
+
+  .signature {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    color: #fba0e3;
+    margin-top: 30px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 2s;
+    font-style: italic;
+  }
+
+  .cake-area {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .cake {
+    font-size: clamp(8rem, 18vw, 14rem);
+    line-height: 1;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.4));
+    position: relative;
+  }
+
+  .cake-area:hover .cake {
+    transform: scale(1.05);
+  }
+
+  .cake.lit {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(182, 97, 161, 0.4)); }
+    50% { filter: drop-shadow(0 0 30px rgba(246, 140, 219, 0.8)); }
+  }
+
+  .candle-flame {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    animation: flicker 0.4s ease-in-out infinite alternate;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .candle-flame.out {
+    opacity: 0;
+  }
+
+  @keyframes flicker {
+    0% { transform: translateX(-50%) scale(1) rotate(-2deg); filter: brightness(1); }
+    100% { transform: translateX(-50%) scale(1.1) rotate(2deg); filter: brightness(1.2); }
+  }
+
+  .hint {
+    text-align: center;
+    margin-top: 15px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: #fba0e3;
+    opacity: 0;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .hint.show { opacity: 1; }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .blow-instruction {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #fba0e3;
+    display: none;
+  }
+
+  .blow-instruction.show {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+
+  #micBtn {
+    margin-top: 10px;
+    background: transparent;
+    border: 2px solid #fba0e3;
+    color: #f1f1f1;
+    padding: 8px 18px;
+    border-radius: 25px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  #micBtn:hover {
+    background: #fba0e3;
+    color: #000;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Final message */
+  .final-message {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 100;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .final-message.show {
+    display: flex;
+    animation: fadeIn 1s ease;
+  }
+
+  .final-message h2 {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    color: #fba0e3;
+    margin-bottom: 20px;
+    text-shadow: 0 0 30px rgba(246, 140, 219, 0.6);
+  }
+
+  .final-message p {
+    font-family: 'Caveat', cursive;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    color: #fba0e3;
+    max-width: 600px;
+    line-height: 1.4;
+    margin-bottom: 30px;
+  }
+
+  .restart-btn {
+    background: transparent;
+    border: 2px solid #fba0e3;
+    color: #f1f1f1;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .restart-btn:hover {
+    background: #fba0e3;
+    color: #000;
+    transform: scale(1.05);
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+    z-index: 50;
+    top: -20px;
+  }
+
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(720deg); }
+  }
+
+  /* Sparkles in background */
+  .sparkle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #fba0e3;
+    border-radius: 50%;
+    opacity: 0;
+    animation: sparkle 3s ease-in-out infinite;
+  }
+
+  @keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+
+  @media (max-width: 600px) {
+    .container { gap: 20px; flex-direction: column; }
+    .messages { text-align: center; }
+  }
+</style>
+</head>
+<body>
+    <audio id="song">
+        <source src="happy birthday song.mp3">
+    </audio>
+    <!-- now js -->
+     <script>
+        window.addEventListener('click', () => {
+            document.getElementById("song").play();
+        })
+     </script>
+<div class="container">
+  <div class="messages">
+    <h1>Happy Birthday j nuthhh🐼</h1>
+    <p class="instruction">Click the Cake 🍰</p>
+    <p class="instruction">Then, Blow the candle's out !</p>
+    <p class="signature">( make a wishhh)</p>
+  </div>
+
+  <div>
+    <div class="cake-area" id="cakeArea">
+      <div class="cake" id="cake">🎂</div>
+      <div class="candle-flame" id="flame">🔥</div>
+    </div>
+    <p class="hint" id="hint">↑ tap the cake</p>
+    <div class="blow-instruction" id="blowInstruction">
+      Now blow the candle out! 🌬️<br>
+      <button id="micBtn">🎤 Use Microphone</button><br>
+      <span style="font-size:1rem; opacity:0.7;">or just tap the flame</span>
+    </div>
+  </div>
+</div>
+
+<div class="final-message" id="finalMessage">
+  <h2>🎉💐 Make a Wish! 💐🎉</h2>
+  <div>
+    <img src="cute.gif" alt="" width="220">
+  </div>
+  <p>Hope your day is filled with all the love and happiness you deserve. Happy Birthday Z'nuthhh 🎂🎂✨</p>
+  <button class="restart-btn" id="restartBtn">Celebrate Again ✨</button>
+  <p class="signature">( design by Z'hong xD)</p>
+</div>
+
+<script>
+  const cake = document.getElementById('cake');
+  const cakeArea = document.getElementById('cakeArea');
+  const flame = document.getElementById('flame');
+  const hint = document.getElementById('hint');
+  const blowInstruction = document.getElementById('blowInstruction');
+  const finalMessage = document.getElementById('finalMessage');
+  const restartBtn = document.getElementById('restartBtn');
+  const micBtn = document.getElementById('micBtn');
+
+  let cakeClicked = false;
+  let candleOut = false;
+
+  // Show hint after delay
+  setTimeout(() => hint.classList.add('show'), 3000);
+
+  // Background sparkles
+  function createSparkles() {
+    for (let i = 0; i < 30; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 3 + 's';
+      document.body.appendChild(s);
+    }
+  }
+  createSparkles();
+
+  // Click cake
+  cakeArea.addEventListener('click', (e) => {
+    if (!cakeClicked) {
+      cakeClicked = true;
+      cake.classList.add('lit');
+      hint.classList.remove('show');
+      blowInstruction.classList.add('show');
+      playSound('click');
+    } else if (!candleOut && e.target !== micBtn) {
+      blowOutCandle();
+    }
+  });
+
+  // Microphone blow detection
+  micBtn.addEventListener('click', async (e) => {
+    e.stopPropagation();
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const analyser = audioCtx.createAnalyser();
+      const source = audioCtx.createMediaStreamSource(stream);
+      source.connect(analyser);
+      analyser.fftSize = 512;
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      micBtn.textContent = '🎤 Listening... blow!';
+
+      function detect() {
+        analyser.getByteFrequencyData(data);
+        let sum = 0;
+        for (let i = 0; i < data.length; i++) sum += data[i];
+        const avg = sum / data.length;
+        if (avg > 50) {
+          blowOutCandle();
+          stream.getTracks().forEach(t => t.stop());
+          audioCtx.close();
+          return;
+        }
+        if (!candleOut) requestAnimationFrame(detect);
+      }
+      detect();
+    } catch (err) {
+      micBtn.textContent = '🎤 Mic blocked - tap flame instead';
+    }
+  });
+
+  function blowOutCandle() {
+    if (candleOut) return;
+    candleOut = true;
+    flame.classList.add('out');
+    cake.classList.remove('lit');
+    
+    // Smoke effect
+    const smoke = document.createElement('div');
+    smoke.textContent = '💨';
+    smoke.style.cssText = 'position:absolute; top:5%; left:50%; transform:translateX(-50%); font-size:2.5rem; opacity:0; transition:all 2s; pointer-events:none;';
+    cakeArea.appendChild(smoke);
+    setTimeout(() => {
+      smoke.style.opacity = '0.7';
+      smoke.style.top = '-30%';
+    }, 50);
+    setTimeout(() => smoke.remove(), 2000);
+
+    setTimeout(() => {
+      launchConfetti();
+      finalMessage.classList.add('show');
+    }, 1200);
+  }
+
+  function launchConfetti() {
+    const colors = ['#ffb84d', '#f5a623', '#ff6b6b', '#ffd93d', '#ff8e3c', '#e94e77'];
+    for (let i = 0; i < 100; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti';
+      c.style.left = Math.random() * 100 + '%';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.width = (Math.random() * 8 + 6) + 'px';
+      c.style.height = (Math.random() * 8 + 6) + 'px';
+      c.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+      const dur = Math.random() * 2 + 2.5;
+      c.style.animation = `fall ${dur}s linear forwards`;
+      c.style.animationDelay = Math.random() * 1.5 + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), (dur + 2) * 1000);
+    }
+  }
+
+  restartBtn.addEventListener('click', () => {
+    finalMessage.classList.remove('show');
+    cakeClicked = false;
+    candleOut = false;
+    flame.classList.remove('out');
+    blowInstruction.classList.remove('show');
+    micBtn.textContent = '🎤 Use Microphone';
+    setTimeout(() => hint.classList.add('show'), 1000);
+  });
+
+  // Simple click sound
+  function playSound(type) {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = 600;
+      g.gain.setValueAtTime(0.1, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      o.start(); o.stop(ctx.currentTime + 0.2);
+    } catch(e) {}
+  }
+</script>
+
+</body>
+</html>
